@@ -32,4 +32,12 @@ return function (App $app) {
           'name' => $args['name']
       ]);
     })->setName('profile');
+
+    $app->group('/admin', function (Group $group){
+       $group->get('',\App\Application\Controller\Admin\DashboardController::class . ':index');
+       $group->group('/product', function (Group $group) {
+           $group->get('',\App\Application\Controller\Admin\ProductController::class . ':index');
+           $group->get('/create',\App\Application\Controller\Admin\ProductController::class . ':create');
+       });
+    });
 };
